@@ -8,6 +8,9 @@ const {
   title = 'Nueva Cereales S.A. | Corredores de Cereales en Bahía Blanca',
   description = 'Corretaje de granos, cereales, oleaginosas y subproductos. Asesoramiento integral en aspectos legales, comerciales, financieros y logísticos. Bahía Blanca, desde 2007.',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/images/logo.png', Astro.site);
 ---
 
 <!doctype html>
@@ -17,13 +20,15 @@ const {
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/logo.png" />
+    <meta property="og:image" content={ogImage} />
 
     <!-- Fonts: Cormorant Garamond (display serif) + Inter Tight (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
