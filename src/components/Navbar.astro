@@ -1,0 +1,145 @@
+---
+// Navbar con efecto de scroll y menú mobile
+// INTRANET_URL: cambiar cuando se tenga la URL real
+const INTRANET_URL = '#'; // TODO: reemplazar por URL de intranet
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent"
+>
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center group" aria-label="Nueva Cereales S.A.">
+      <img
+        src="/images/logo.png"
+        alt="Nueva Cereales S.A."
+        class="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-[1.02]"
+      />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-10">
+      <a
+        href="#institucional"
+        class="text-sm font-medium text-cream-50 hover:text-wheat-400 transition-colors tracking-wide uppercase nav-link-light"
+      >
+        Institucional
+      </a>
+      <a
+        href="#servicios"
+        class="text-sm font-medium text-cream-50 hover:text-wheat-400 transition-colors tracking-wide uppercase nav-link-light"
+      >
+        Servicios
+      </a>
+      <a
+        href="#contacto"
+        class="text-sm font-medium text-cream-50 hover:text-wheat-400 transition-colors tracking-wide uppercase nav-link-light"
+      >
+        Contacto
+      </a>
+      <a
+        href={INTRANET_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="relative inline-flex items-center gap-2 px-5 py-2.5 bg-wheat-400 text-ink-900 text-sm font-semibold tracking-wide uppercase hover:bg-wheat-300 transition-colors"
+      >
+        Acceso Clientes
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+        </svg>
+      </a>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-button"
+      aria-label="Abrir menú"
+      class="lg:hidden text-cream-50 p-2 nav-link-light"
+    >
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden hidden bg-ink-900/80 backdrop-blur-md border-t border-teal-700/30"
+  >
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex flex-col gap-6">
+      <a
+        href="#institucional"
+        class="text-cream-50 hover:text-wheat-400 text-lg font-medium tracking-wide uppercase mobile-link"
+      >
+        Institucional
+      </a>
+      <a
+        href="#servicios"
+        class="text-cream-50 hover:text-wheat-400 text-lg font-medium tracking-wide uppercase mobile-link"
+      >
+        Servicios
+      </a>
+      <a
+        href="#contacto"
+        class="text-cream-50 hover:text-wheat-400 text-lg font-medium tracking-wide uppercase mobile-link"
+      >
+        Contacto
+      </a>
+      <a
+        href={INTRANET_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 px-5 py-3 bg-wheat-400 text-ink-900 font-semibold tracking-wide uppercase mt-2"
+      >
+        Acceso Clientes
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+        </svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Scroll effect: navbar cambia de estilo cuando se scrollea fuera del hero
+  const navbar = document.getElementById('navbar');
+  const navLinks = document.querySelectorAll('.nav-link-light');
+
+  const handleScroll = () => {
+    if (!navbar) return;
+    if (window.scrollY > 80) {
+      navbar.classList.remove('bg-transparent');
+      navbar.classList.add('bg-cream-50/95', 'backdrop-blur-md', 'shadow-sm');
+      navLinks.forEach((link) => {
+        link.classList.remove('text-cream-50');
+        link.classList.add('text-ink-900');
+      });
+    } else {
+      navbar.classList.add('bg-transparent');
+      navbar.classList.remove('bg-cream-50/95', 'backdrop-blur-md', 'shadow-sm');
+      navLinks.forEach((link) => {
+        link.classList.add('text-cream-50');
+        link.classList.remove('text-ink-900');
+      });
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+
+  menuBtn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+
+  // Cerrar menú al clickear un link
+  document.querySelectorAll('.mobile-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+    });
+  });
+</script>

@@ -1,0 +1,141 @@
+---
+// Hero: fullscreen, editorial, con foto de fondo agro (stock)
+// Foto sugerida: campo de trigo al atardecer, con alta calidad
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen w-full overflow-hidden bg-ink-900 grain"
+>
+  <!-- Background image (campo agro, stock) -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=2400&q=80"
+      alt=""
+      class="w-full h-full object-cover opacity-50"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <!-- Gradient overlay para legibilidad -->
+    <div class="absolute inset-0 bg-gradient-to-br from-ink-900/90 via-ink-900/70 to-teal-900/60"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 min-h-screen flex flex-col justify-center pt-32 pb-20">
+    <!-- Eyebrow -->
+    <div class="hero-eyebrow flex items-center gap-3 mb-8 gsap-fade-in">
+      <span class="w-12 h-px bg-wheat-400"></span>
+      <span class="text-wheat-400 text-xs font-mono tracking-[0.25em] uppercase">
+        Desde 2007 · Bahía Blanca
+      </span>
+    </div>
+
+    <!-- Titular principal -->
+    <h1 class="hero-title font-display text-cream-50 text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] leading-[0.95] tracking-tightest max-w-5xl">
+      <span class="block gsap-fade-in">Corretaje</span>
+      <span class="block gsap-fade-in">de <em class="text-wheat-400 not-italic font-normal italic-style">granos</em></span>
+      <span class="block gsap-fade-in">con <span class="underline decoration-wheat-400 decoration-2 underline-offset-[10px]">aval</span> y trayectoria.</span>
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="hero-sub mt-10 max-w-2xl text-cream-100/90 text-lg md:text-xl leading-relaxed font-light gsap-fade-in">
+      Intermediación en la compra y venta de cereales, oleaginosas y subproductos.
+      Asesoramiento integral en aspectos legales, comerciales, financieros y logísticos.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas mt-12 flex flex-col sm:flex-row gap-4 gsap-fade-in">
+      <a
+        href="#contacto"
+        class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-wheat-400 text-ink-900 font-semibold tracking-wide uppercase text-sm hover:bg-wheat-300 transition-colors"
+      >
+        Contactanos
+        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+      <a
+        href="#institucional"
+        class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-cream-50/30 text-cream-50 font-medium tracking-wide uppercase text-sm hover:bg-cream-50/5 transition-colors"
+      >
+        Conocé más
+      </a>
+    </div>
+
+    <!-- Stats inline -->
+    <div class="hero-stats mt-20 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 max-w-3xl">
+      <div class="gsap-fade-in">
+        <div class="font-display text-4xl md:text-5xl text-wheat-400 leading-none">19+</div>
+        <div class="mt-2 text-cream-100/70 text-xs font-mono tracking-widest uppercase">
+          Años de trayectoria
+        </div>
+      </div>
+      <div class="gsap-fade-in">
+        <div class="font-display text-4xl md:text-5xl text-wheat-400 leading-none">100%</div>
+        <div class="mt-2 text-cream-100/70 text-xs font-mono tracking-widest uppercase">
+          Asesoramiento integral
+        </div>
+      </div>
+      <div class="gsap-fade-in col-span-2 md:col-span-1">
+        <div class="font-display text-4xl md:text-5xl text-wheat-400 leading-none">BB</div>
+        <div class="mt-2 text-cream-100/70 text-xs font-mono tracking-widest uppercase">
+          Sudoeste bonaerense
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 text-cream-100/50">
+    <span class="text-[10px] font-mono tracking-[0.3em] uppercase">Scroll</span>
+    <div class="w-px h-12 bg-gradient-to-b from-cream-100/50 to-transparent"></div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  // Animación de entrada orquestada
+  window.addEventListener('load', () => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    tl.to('.hero-eyebrow.gsap-fade-in', {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+    })
+      .from('.hero-title .gsap-fade-in', {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        stagger: 0.12,
+      }, '-=0.3')
+      .to('.hero-title .gsap-fade-in', {
+        opacity: 1,
+      }, '<')
+      .to('.hero-sub.gsap-fade-in', {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+      }, '-=0.6')
+      .to('.hero-ctas.gsap-fade-in', {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+      }, '-=0.5')
+      .to('.hero-stats .gsap-fade-in', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+      }, '-=0.3');
+  });
+</script>
+
+<style>
+  .italic-style {
+    font-style: italic;
+    font-weight: 500;
+  }
+</style>

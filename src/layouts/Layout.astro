@@ -1,0 +1,102 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Nueva Cereales S.A. | Corredores de Cereales en Bahía Blanca',
+  description = 'Corretaje de granos, cereales, oleaginosas y subproductos. Asesoramiento integral en aspectos legales, comerciales, financieros y logísticos. Bahía Blanca, desde 2007.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/logo.png" />
+
+    <!-- Fonts: Cormorant Garamond (display serif) + Inter Tight (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter+Tight:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body class="bg-cream-50 text-ink-900 antialiased font-sans">
+    <slot />
+
+    <style is:global>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-feature-settings: 'ss01', 'cv01', 'cv11';
+      }
+
+      /* Selección de texto con color de marca */
+      ::selection {
+        background-color: #e9b141;
+        color: #1a2a27;
+      }
+
+      /* Scrollbar sutil */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f5f2ea;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #3d6861;
+        border-radius: 0;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #2f5049;
+      }
+
+      /* Helper: línea dorada recurrente (homenaje al logo) */
+      .gold-line {
+        position: relative;
+      }
+      .gold-line::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -0.5rem;
+        width: 3rem;
+        height: 2px;
+        background-color: #e9b141;
+      }
+
+      /* Grain texture overlay opcional en hero */
+      .grain::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      /* Evitar FOUC en elementos que animaremos con GSAP */
+      .gsap-fade-in {
+        opacity: 0;
+      }
+    </style>
+  </body>
+</html>

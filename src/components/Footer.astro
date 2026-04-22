@@ -1,0 +1,69 @@
+---
+const year = new Date().getFullYear();
+const INTRANET_URL = '#'; // TODO: reemplazar por URL de intranet
+---
+
+<footer class="relative bg-ink-900 text-cream-100 pt-20 pb-10 overflow-hidden">
+  <!-- Línea dorada superior -->
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-wheat-400 to-transparent opacity-30"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid grid-cols-12 gap-8 pb-16">
+      <!-- Logo y descripción -->
+      <div class="col-span-12 md:col-span-5">
+        <img src="/images/logo.png" alt="Nueva Cereales S.A." class="h-14 w-auto mb-6" />
+        <p class="text-cream-100/60 text-sm leading-relaxed max-w-sm">
+          Corretaje de granos, cereales, oleaginosas y subproductos.
+          Asesoramiento integral desde 2007.
+        </p>
+      </div>
+
+      <!-- Navegación -->
+      <div class="col-span-6 md:col-span-3">
+        <div class="text-xs font-mono tracking-[0.25em] uppercase text-wheat-400 mb-5">
+          Secciones
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#institucional" class="text-cream-100/70 hover:text-wheat-400 transition-colors">Institucional</a></li>
+          <li><a href="#servicios" class="text-cream-100/70 hover:text-wheat-400 transition-colors">Servicios</a></li>
+          <li><a href="#contacto" class="text-cream-100/70 hover:text-wheat-400 transition-colors">Contacto</a></li>
+          <li>
+            <a href={INTRANET_URL} target="_blank" rel="noopener noreferrer" class="text-wheat-400 hover:text-wheat-300 transition-colors inline-flex items-center gap-1">
+              Acceso Clientes
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div class="col-span-6 md:col-span-4">
+        <div class="text-xs font-mono tracking-[0.25em] uppercase text-wheat-400 mb-5">
+          Contacto
+        </div>
+        <ul class="space-y-3 text-sm text-cream-100/70">
+          <li>Holdich 609, Bahía Blanca</li>
+          <li>Buenos Aires, Argentina</li>
+          <li>
+            <a href="tel:+5492914549191" class="hover:text-wheat-400 transition-colors">
+              +54 9 291 454-9191
+            </a>
+          </li>
+          <li class="text-xs text-cream-100/50 mt-4">CUIT: 30-71003818-6</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="pt-8 border-t border-cream-100/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-xs text-cream-100/50 font-mono">
+        © {year} Nueva Cereales S.A. — Todos los derechos reservados.
+      </div>
+      <div class="text-xs text-cream-100/40 font-mono tracking-widest uppercase">
+        Bahía Blanca · Argentina
+      </div>
+    </div>
+  </div>
+</footer>
