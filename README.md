@@ -74,11 +74,6 @@ const CONTACT_EMAIL = 'contacto@nuevacereales.com.ar'; // TODO: reemplazar por e
 ```
 Reemplazar por el email corporativo real cuando se defina.
 
-### 3. Dominio en `astro.config.mjs`
-```js
-site: 'https://nuevacereales.com.ar', // Cambiar por el dominio real
-```
-
 ---
 
 ## Datos de contacto actuales (hardcoded)
