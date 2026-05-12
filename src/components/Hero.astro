@@ -96,40 +96,24 @@
 <script>
   import { gsap } from 'gsap';
 
-  // Animación de entrada orquestada
   window.addEventListener('load', () => {
+    gsap.set('.hero-eyebrow.gsap-fade-in', { y: 20 });
+    gsap.set('.hero-sub.gsap-fade-in', { y: 20 });
+    gsap.set('.hero-ctas.gsap-fade-in', { y: 20 });
+    gsap.set('.hero-stats .gsap-fade-in', { y: 20 });
+
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.to('.hero-eyebrow.gsap-fade-in', {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-    })
-      .from('.hero-title .gsap-fade-in', {
-        opacity: 0,
-        y: 40,
-        duration: 1,
-        stagger: 0.12,
-      }, '-=0.3')
-      .to('.hero-title .gsap-fade-in', {
-        opacity: 1,
-      }, '<')
-      .to('.hero-sub.gsap-fade-in', {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-      }, '-=0.6')
-      .to('.hero-ctas.gsap-fade-in', {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-      }, '-=0.5')
-      .to('.hero-stats .gsap-fade-in', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.1,
-      }, '-=0.3');
+    tl.to('.hero-eyebrow.gsap-fade-in', { opacity: 1, y: 0, duration: 0.8 })
+      .fromTo(
+        '.hero-title .gsap-fade-in',
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.12 },
+        '-=0.3'
+      )
+      .to('.hero-sub.gsap-fade-in', { opacity: 1, y: 0, duration: 0.9 }, '-=0.6')
+      .to('.hero-ctas.gsap-fade-in', { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
+      .to('.hero-stats .gsap-fade-in', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, '-=0.3');
   });
 </script>
 
