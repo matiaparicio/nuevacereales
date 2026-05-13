@@ -1,1 +1,160 @@
+---
+const recursos = [
+  {
+    label: 'A3 Dólar',
+    desc: 'Futuros Financieros · Matba Rofex',
+    href: 'https://matbarofex.primary.ventures/fyo/futurosfinancieros',
+  },
+  {
+    label: 'A3 Agro',
+    desc: 'Futuros Agropecuarios · Matba Rofex',
+    href: 'https://matbarofex.primary.ventures/fyo/futurosagropecuarios',
+  },
+  {
+    label: 'BCP Bahía Blanca',
+    desc: 'Bolsa de Cereales y Productos',
+    href: 'https://bcp.org.ar/estimaciones/sim.asp',
+  },
+];
+
+const cereales = [
+  { id: 'soja',              label: 'Soja' },
+  { id: 'trigo',             label: 'Trigo' },
+  { id: 'maiz',              label: 'Maíz' },
+  { id: 'cebada-forrajera',  label: 'Cebada Forrajera' },
+  { id: 'cebada-cervecera',  label: 'Cebada Cervecera' },
+];
+---
+
+<section id="mercado" class="relative bg-ink-900 py-24 md:py-32 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <!-- Eyebrow -->
+    <div class="flex items-center gap-3 mb-12">
+      <span class="w-8 h-px bg-wheat-400"></span>
+      <span class="text-wheat-400 text-xs font-mono tracking-[0.25em] uppercase">Mercado</span>
+    </div>
+
+    <!-- Grilla principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+      <!-- Dólar BNA -->
+      <div class="lg:col-span-2 bg-teal-900/30 border border-teal-700/25 p-8 flex flex-col gap-6">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono tracking-widest uppercase text-wheat-400">Dólar BNA</span>
+          <span class="text-xs text-cream-100/30 font-mono" id="dolar-hora">--:--</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <div class="text-xs text-cream-100/40 uppercase tracking-wider mb-1">Compra</div>
+            <div id="dolar-compra" class="font-display text-4xl text-cream-50 leading-none">—</div>
+          </div>
+          <div>
+            <div class="text-xs text-cream-100/40 uppercase tracking-wider mb-1">Venta</div>
+            <div id="dolar-venta" class="font-display text-4xl text-wheat-400 leading-none">—</div>
+          </div>
+        </div>
+
+        <p class="text-xs text-cream-100/25 font-mono mt-auto">
+          Banco Nación Argentina · Se actualiza cada 5 min
+        </p>
+      </div>
+
+      <!-- Pizarra cereales -->
+      <div class="lg:col-span-3 bg-teal-900/30 border border-teal-700/25 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-xs font-mono tracking-widest uppercase text-wheat-400">Pizarra</span>
+          <span class="text-xs text-cream-100/30 font-mono">$/ton · orientativo</span>
+        </div>
+
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-teal-700/20">
+              <th class="text-left text-xs text-cream-100/30 uppercase tracking-wider pb-3 font-normal">Producto</th>
+              <th class="text-right text-xs text-cream-100/30 uppercase tracking-wider pb-3 font-normal">ARS / ton</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-teal-700/10">
+            {cereales.map((c) => (
+              <tr>
+                <td class="py-3.5 text-cream-100 font-medium">{c.label}</td>
+                <td class="py-3.5 text-right font-display text-xl text-wheat-400" id={`precio-${c.id}`}>—</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <p class="text-xs text-cream-100/25 font-mono mt-6">
+          Valores orientativos · Fuente: BCP Bahía Blanca
+        </p>
+      </div>
+    </div>
+
+    <!-- Recursos útiles -->
+    <div class="mt-8">
+      <div class="text-xs font-mono tracking-widest uppercase text-wheat-400 mb-4">Recursos útiles</div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {recursos.map((r) => (
+          <a
+            href={r.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center justify-between gap-4 px-6 py-5 border border-teal-700/25 hover:border-wheat-400/50 hover:bg-teal-900/20 transition-all"
+          >
+            <div>
+              <div class="text-cream-50 font-semibold text-sm tracking-wide group-hover:text-wheat-400 transition-colors">{r.label}</div>
+              <div class="text-cream-100/40 text-xs mt-0.5">{r.desc}</div>
+            </div>
+            <svg class="w-4 h-4 text-cream-100/30 group-hover:text-wheat-400 flex-shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // ── Dólar BNA ──────────────────────────────────────────────────────────────
+  async function fetchDolar() {
+    try {
+      const res = await fetch('https://dolarapi.com/v1/dolares/oficial');
+      if (!res.ok) return;
+      const data = await res.json();
+      const fmt = (n: number) =>
+        new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 2 }).format(n);
+
+      document.getElementById('dolar-compra')!.textContent = fmt(data.compra);
+      document.getElementById('dolar-venta')!.textContent  = fmt(data.venta);
+
+      const hora = new Date(data.fechaActualizacion);
+      document.getElementById('dolar-hora')!.textContent =
+        hora.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+    } catch (_) { /* silencioso si falla */ }
+  }
+
+  fetchDolar();
+  setInterval(fetchDolar, 5 * 60 * 1000); // refresca cada 5 min
+
+  // ── Pizarra cereales ────────────────────────────────────────────────────────
+  // Precios orientativos en ARS/ton — actualizar manualmente cuando sea necesario
+  const preciosOrientativos: Record<string, number> = {
+    'soja':             392000,
+    'trigo':            264000,
+    'maiz':             243000,
+    'cebada-forrajera': 228000,
+    'cebada-cervecera': 252000,
+  };
+
+  const fmtPeso = (n: number) =>
+    new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(n);
+
+  for (const [id, precio] of Object.entries(preciosOrientativos)) {
+    const el = document.getElementById(`precio-${id}`);
+    if (el) el.textContent = fmtPeso(precio);
+  }
+</script>
 
